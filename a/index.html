@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+          alert('Page was restored from a previous session.');
+        }
+      });
+    </script>
+    <h1>This is Page A</h1>
+    <h1>Nav through the link below will see the alert</h1>
+    <a href="/b">Nav to Page B</a>
+    <h1>However, nav through the link below will NOT see the alert</h1>
+    <a href="/a">Nav to Page A</a>
+  </body>
+</html>
