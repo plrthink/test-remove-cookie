@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+       var readCookie = function(name) {
+        var result = new RegExp('(?:^|; )' + encodeURIComponent(name) + '=([^;]*)').exec(document.cookie);
+        return result ? result[1] : null
+      };
+
+      var removeCookie = function(name, path) {
+        var date = new Date();
+        date.setTime(date.getTime() - 1000);
+        var expires = '; expires=' + date.toUTCString();
+        var setCookie = name + '=' + expires + '; path=' + (path || '/');
+        document.cookie = setCookie
+        document.cookie = setCookie + '; SameSite=None; Secure'
+        return readCookie(name)
+      };
+
+      var setCookie = function(name, value, days, path) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = '; expires=' + date.toUTCString();
+        var setCookie = name + '=' + value + expires + '; path=' + (path || '/');
+        document.cookie = setCookie
+        document.cookie = setCookie + '; SameSite=None; Secure'
+        return readCookie(name)
+      };
+
+      var log = function(message) {
+        var $el = document.createElement('p')
+        $el.innerHTML = message
+        document.body.appendChild($el)
+      };
+
+      log('=== BEFORE:setCookie ===')
+      log(setCookie('test', 'test', 1))
+      log('=== AFTER:setCookie ===')
+      log('=== BEFORE:readCookie ===')
+      log(readCookie('test'))
+      log('=== AFTER:readCookie ===')
+      log('=== BEFORE:removeCookie ===')
+      log(removeCookie('test'))
+      log('=== AFTER:removeCookie ===')
+      log('=== BEFORE:readCookie ===')
+      log(readCookie('test'))
+      log('=== AFTER:readCookie ===')
+    </script>
+  </body>
+</html>
